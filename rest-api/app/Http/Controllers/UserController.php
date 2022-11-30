@@ -9,7 +9,7 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function registrasi(Request $request)
+    public function createUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
             "name" => "required|string",
