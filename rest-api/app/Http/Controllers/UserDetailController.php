@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserDetail;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +16,7 @@ class UserDetailController extends Controller
         Gate::authorize('fundraiser');
         
         $validator = Validator::make($request->all(), [
+            "email" => "required|string|email:rfc,dns|unique:user_details,email",
             'full_name' => "required|string",
             'address' => 'required|string',
             'selfie_img' => 'required|mimes:png,jpg,jpeg|max:5048',
@@ -38,6 +40,7 @@ class UserDetailController extends Controller
         
         try {
             $createdData = UserDetail::create([
+                'email' => $validated['email'],
                 'full_name' => $validated['full_name'],
                 'address' => $validated['address'],
                 'selfie_img' => $validated['selfie_img'],
@@ -48,6 +51,8 @@ class UserDetailController extends Controller
                 'contract_file' => $validated['contract_file'],
                 'user_id' => $user,
             ]);
+            $token = $createdData->createToken($request->full_name)->plainTextToken; 
+            event(new Registered($createdData));
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'gagal resgistrasi',
@@ -58,6 +63,8 @@ class UserDetailController extends Controller
         return response()->json([
             'message' => 'berhasil registrasi sebagai fundraiser',
             'data' => $createdData,
+            'notif' => 'telah mengirim verifikasi ke email anda',
+            'token' => $token,
         ], Response::HTTP_CREATED);
     }
 }

@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
@@ -14,7 +16,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "name" => "required|string",
-            "email" => "required|string|email:rfc,dns|unique:users,email",
+            "username" => "required|string|unique:users,username",
             "password" => "required|string|min:8",
             "role_id" => "required",
         ]);
@@ -47,18 +49,18 @@ class UserController extends Controller
     public function loginUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "email" => "required|string",
+            "username" => "required|string",
             "password" => "required|string|min:8",
         ]);
 
         if($validator->fails()){
             return response()->json([
-                "message" => "email atau password tidak di isi",
+                "message" => "username atau password tidak di isi",
                 "error" => $validator->errors(),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $user = User::where("email", $request->email)->first();
+        $user = User::where("username", $request->username)->first();
 
         if(!$user || !Hash::check($request->password, $user->password)){
             return response()->json([
@@ -66,7 +68,7 @@ class UserController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
-        $token = $user->createToken($request->email)->plainTextToken;
+        $token = $user->createToken($request->username)->plainTextToken;
 
         return response()->json([
             "message" => "berhasil login",
@@ -86,7 +88,7 @@ class UserController extends Controller
 
     public function deleteUser($id)
     {
-        $this->authorize('admin');
+        Gate::authorize('admin');
         
         $user = User::findOrFail($id);
         
