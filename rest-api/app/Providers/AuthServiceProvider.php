@@ -28,8 +28,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('admin-delete-users', function (User $user){
+        //admin gates
+        Gate::define('admin', function(User $user){
             if($user->role_id === 1){
+                return true;
+            }
+        });
+
+        //fundraiser gates
+        Gate::define('fundraiser', function(User $user){
+            if($user->role_id === 2 || $user->role_id === 1){
                 return true;
             }
         });

@@ -35,7 +35,7 @@ class UserController extends Controller
             return response()->json([
                 "message" => "gagal registrasi",
                 "error" => $e->getMessage()
-            ]);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return response()->json([
@@ -86,7 +86,7 @@ class UserController extends Controller
 
     public function deleteUser($id)
     {
-        $this->authorize('admin-delete-users');
+        $this->authorize('admin');
         
         $user = User::findOrFail($id);
         
