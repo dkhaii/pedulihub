@@ -6,12 +6,13 @@ use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
 
 class UserDetailController extends Controller
 {
     public function registerFundraiser(Request $request)
     {
-        $this->authorize('fundraiser');
+        Gate::authorize('fundraiser');
         
         $validator = Validator::make($request->all(), [
             'full_name' => "required|string",
@@ -34,7 +35,7 @@ class UserDetailController extends Controller
         $validated = $validator->validated();
         
         $user = auth()->user()->id;
-
+        
         try {
             $createdData = UserDetail::create([
                 'full_name' => $validated['full_name'],
