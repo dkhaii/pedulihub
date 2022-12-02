@@ -37,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //fundraiser gates
         Gate::define('fundraiser', function(User $user){
-            if($user->role_id === 2){
+            if($user->role_id === 2 || $user->role_id === 1){
                 return true;
             }
         });
