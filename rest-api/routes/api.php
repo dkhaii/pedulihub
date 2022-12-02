@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDetailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::prefix('auth')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post("/auth/logout", [UserController::class, "logoutUser"]);
     Route::delete('/auth/delete/{id}', [UserController::class, 'deleteUser']);
+    Route::post('/auth/regisFundraiser', [UserDetailController::class, 'registerFundraiser']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
