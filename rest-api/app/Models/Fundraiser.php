@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Role;
 
-class User extends Authenticatable implements MustVerifyEmail
+class Fundraiser extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -19,11 +19,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'username',
+        'email',
         'password',
-        "role_id",
-        'detail_id',
     ];
 
     /**
@@ -45,8 +42,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function role()
+    /**
+     * The relation between tables.
+     * 
+     */
+    public function details()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasOne(FundraiserDetail::class);
     }
 }

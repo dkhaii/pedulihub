@@ -4,35 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-class UserDetail extends Authenticatable implements MustVerifyEmail
+class FundraiserDetail extends Model
 {
-    use HasApiTokens,HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
-        'email',
+        'user_id',
         'full_name',
         'address',
         'selfie_img',
+        'nik_ktp',
         'ktp_img',
         'phone_number',
         'bank_name',
         'bank_account',
         'contract_file',
-        'user_id',
     ];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function user()
+    /**
+     * The relation between tables.
+     * 
+     */
+    public function details()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Fundraiser::class);
     }
 }

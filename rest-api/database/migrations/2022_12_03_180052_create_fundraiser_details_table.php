@@ -13,19 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_details', function (Blueprint $table) {
+        Schema::create('fundraiser_details', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
+            $table->foreignId('user_id')->constrained('fundraisers');
             $table->string('full_name');
             $table->string('address');
             $table->string('selfie_img');
+            $table->string('nik_ktp');
             $table->string('ktp_img');
             $table->string('phone_number')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('bank_name');
             $table->string('bank_account')->unique();
             $table->string('contract_file');
-            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_details');
+        Schema::dropIfExists('fundraiser_details');
     }
 };

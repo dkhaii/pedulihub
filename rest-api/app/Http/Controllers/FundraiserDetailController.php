@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserDetail;
-use Illuminate\Auth\Events\Registered;
+use App\Models\FundraiserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 
-class UserDetailController extends Controller
+class FundraiserDetailController extends Controller
 {
-    public function registerFundraiser(Request $request)
-    {
-        Gate::authorize('fundraiser');
-        
+    public function createData(Request $request)
+    {   
         $validator = Validator::make($request->all(), [
-            "email" => "required|string|email:rfc,dns|unique:user_details,email",
             'full_name' => "required|string",
             'address' => 'required|string',
             'selfie_img' => 'required|mimes:png,jpg,jpeg|max:5048',
+            'nik_ktp' => 'required|string',
             'ktp_img' => 'required|mimes:png,jpg,jpeg|max:5048',
             'phone_number' => 'required|string|max:12',
             'bank_name' => 'required|string',
@@ -35,36 +32,35 @@ class UserDetailController extends Controller
         }
 
         $validated = $validator->validated();
+        $validated['nik_ktp'] = bcrypt($validated['nik_ktp']);
+        $validated['phone_number'] = bcrypt($validated['phone_number']);
+        $validated['bank_account'] = bcrypt($validated['bank_account']);
         
         $user = auth()->user()->id;
         
         try {
-            $createdData = UserDetail::create([
-                'email' => $validated['email'],
+            $createdData = FundraiserDetail::create([
+                'user_id' => $user,
                 'full_name' => $validated['full_name'],
                 'address' => $validated['address'],
                 'selfie_img' => $validated['selfie_img'],
+                'nik_ktp' => $validated['nik_ktp'],
                 'ktp_img' => $validated['ktp_img'],
                 'phone_number' => $validated['phone_number'],
                 'bank_name' => $validated['bank_name'],
                 'bank_account' => $validated['bank_account'],
                 'contract_file' => $validated['contract_file'],
-                'user_id' => $user,
             ]);
-            $token = $createdData->createToken($request->full_name)->plainTextToken; 
-            event(new Registered($createdData));
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'gagal resgistrasi',
                 'errors' => $e->getMessage(),
             ], Response::HTTP_NOT_ACCEPTABLE);
         }
-
+        
         return response()->json([
             'message' => 'berhasil registrasi sebagai fundraiser',
             'data' => $createdData,
-            'notif' => 'telah mengirim verifikasi ke email anda',
-            'token' => $token,
         ], Response::HTTP_CREATED);
     }
 }
