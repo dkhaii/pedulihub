@@ -50,4 +50,9 @@ class Fundraiser extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(FundraiserDetail::class);
     }
+
+    public function raiseFund()
+    {
+        return $this->hasMany(RaiseFund::class);
+    }
 }

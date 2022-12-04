@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Fundraiser\FundraiserDetailController;
 use App\Http\Controllers\Fundraiser\FundraiserController;
+use App\Http\Controllers\Fundraiser\RaiseFundController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,7 @@ Route::prefix('fundraiser')->group(function () {
 
         Route::middleware('verified')->group(function () {
             Route::post('/registrasi-data', [FundraiserDetailController::class, 'createData']);
+            Route::post('/galang-dana', [RaiseFundController::class, 'createRaiseFund']);
         });
     });
 });
