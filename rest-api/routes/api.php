@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('donasi')->group(function () {
     Route::post("/login", [UserController::class, "loginUser"]);
     Route::post("/registrasi", [UserController::class, "createUser"]);
+    Route::get('/pilihan-donasi', [RaiseFundController::class, 'showAll']);
 });
 
 Route::prefix('donasi')->middleware(['auth:sanctum'])->group(function () {
