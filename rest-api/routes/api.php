@@ -21,9 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::prefix('auth')->group(function () {
+Route::prefix('donasi')->group(function () {
     Route::post("/login", [UserController::class, "loginUser"]);
     Route::post("/registrasi", [UserController::class, "createUser"]);
+});
+
+Route::prefix('donasi')->middleware('auth:sanctum')->group(function () {
+    Route::post("/logout", [UserController::class, "logoutUser"]);
+    // Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
 });
 
 Route::prefix('fundraiser')->group(function () {
@@ -31,15 +36,16 @@ Route::prefix('fundraiser')->group(function () {
     Route::post('/login', [FundraiserController::class, 'loginUser']);
 });
 
+Route::prefix('fundraiser')->middleware('auth:sanctum')->group(function () {
+    // Route::post('/registrasi', [FundraiserController::class, 'createUser']);
+    // Route::post('/login', [FundraiserController::class, 'loginUser']);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/fundraiser/registrasi-data', [FundraiserDetailController::class, 'createData']);
     Route::post('/fundraiser/logout', [FundraiserController::class, 'logoutUser']);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post("/auth/logout", [UserController::class, "logoutUser"]);
-    Route::delete('/auth/delete/{id}', [UserController::class, 'deleteUser']);
-});
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

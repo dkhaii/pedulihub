@@ -17,7 +17,6 @@ class UserController extends Controller
             "name" => "required|string",
             "username" => "required|string|unique:users,username",
             "password" => "required|string|min:8",
-            "role_id" => "required",
         ]);
 
         if($validator->fails()){
