@@ -58,19 +58,34 @@ class RaiseFundController extends Controller
         ], Response::HTTP_CREATED);
     }
 
+    
     public function showAll()
     {
         $datas = RaiseFund::all();
-
+        
         if(!isset($datas)){
             return response()->json([
                 'message' => 'belum ada data'
             ]);
         }
-
+        
         return response()->json([
             'message' => 'menampilkan semua data',
             'data' => $datas,
         ], Response::HTTP_OK);
+    }
+    
+    public function showByName(Request $request)
+    {
+        $datas = RaiseFund::all();
+    
+        if($request->keyword != ''){
+            $datas = RaiseFund::where('title', 'LIKE', $request->title.'%')->get();
+        }
+        
+        return response()->json([
+            'message' => 'menampilkan data berdasarkan judul',
+            'data' => $datas,
+        ]);
     }
 }

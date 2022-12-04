@@ -24,6 +24,7 @@ Route::prefix('donasi')->group(function () {
     Route::post("/login", [UserController::class, "loginUser"]);
     Route::post("/registrasi", [UserController::class, "createUser"]);
     Route::get('/pilihan-donasi', [RaiseFundController::class, 'showAll']);
+    Route::post('/cari', [RaiseFundController::class, 'showByName']);
 });
 
 Route::prefix('donasi')->middleware(['auth:sanctum'])->group(function () {
