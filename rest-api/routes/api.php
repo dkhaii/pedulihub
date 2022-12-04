@@ -1,12 +1,9 @@
 <?php
 
-use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserDetailController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Fundraiser\FundraiserDetailController;
+use App\Http\Controllers\Fundraiser\FundraiserController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,33 +19,34 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::prefix('auth')->group(function () {
+Route::prefix('donasi')->group(function () {
     Route::post("/login", [UserController::class, "loginUser"]);
     Route::post("/registrasi", [UserController::class, "createUser"]);
 });
 
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post("/auth/logout", [UserController::class, "logoutUser"]);
-    Route::delete('/auth/delete/{id}', [UserController::class, 'deleteUser']);
+Route::prefix('donasi')->middleware(['auth:sanctum'], ['verified'])->group(function () {
+    Route::post("/logout", [UserController::class, "logoutUser"]);
+    // Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
 });
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/auth/regisFundraiser', [UserDetailController::class, 'registerFundraiser']);
-   
-    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-     
-        return response()->json([
-            'message' => 'email berhasil di verifikasi',
-        ]);
-    })->middleware(['signed'])->name('verification.verify');
+Route::prefix('fundraiser')->group(function () {
+    Route::post('/registrasi', [FundraiserController::class, 'createUser']);
+    
+    Route::post('/login', [FundraiserController::class, 'loginUser']);
+});
 
-    Route::get('/fundraise', function (){
-        return response()->json([
-            'message' => 'ini halaman fundraise',
-        ]);
-    })->middleware('verified');
+Route::prefix('fundraiser')->middleware('auth:sanctum')->group(function () {
+    Route::get('/email/verify/{id}/{hash}', [FundraiserController::class, 'askToVerifyEmail'])
+        ->middleware(['signed'])
+        ->name('verification.verify');
+    
+    // Route::post('/registrasi', [FundraiserController::class, 'createUser']);
+    // Route::post('/login', [FundraiserController::class, 'loginUser']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/fundraiser/registrasi-data', [FundraiserDetailController::class, 'createData']);
+    Route::post('/fundraiser/logout', [FundraiserController::class, 'logoutUser']);
 });
 
 

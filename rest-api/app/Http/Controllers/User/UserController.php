@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
@@ -18,7 +18,6 @@ class UserController extends Controller
             "name" => "required|string",
             "username" => "required|string|unique:users,username",
             "password" => "required|string|min:8",
-            "role_id" => "required",
         ]);
 
         if($validator->fails()){
