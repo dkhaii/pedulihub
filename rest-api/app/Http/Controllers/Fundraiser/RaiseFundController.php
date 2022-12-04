@@ -57,4 +57,20 @@ class RaiseFundController extends Controller
             'data' => $createData,
         ], Response::HTTP_CREATED);
     }
+
+    public function showAll()
+    {
+        $datas = RaiseFund::all();
+
+        if(!isset($datas)){
+            return response()->json([
+                'message' => 'belum ada data'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'menampilkan semua data',
+            'data' => $datas,
+        ], Response::HTTP_OK);
+    }
 }
