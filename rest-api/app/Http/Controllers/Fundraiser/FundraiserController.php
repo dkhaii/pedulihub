@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Fundraiser;
 
 use App\Http\Controllers\Controller;
 use App\Models\Fundraiser;
+use App\Models\RaiseFund;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -103,5 +105,23 @@ class FundraiserController extends Controller
         return response()->json([
             'message' => 'berhasil logout',
         ], Response::HTTP_OK);
+    }
+
+    public function hasRaiseFund()
+    {
+        $user = auth()->user()->id;
+        
+        $myPost = RaiseFund::where('user_id', $user)->get();
+
+        if(!isset($myPost)){
+            return response()->json([
+                'message' => 'anda belum menggalang dana',
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'menampilkan galang dana yang anda buat',
+            'data' => $myPost,
+        ]);
     }
 }
