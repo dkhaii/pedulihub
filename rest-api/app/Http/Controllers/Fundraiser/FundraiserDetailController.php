@@ -66,24 +66,4 @@ class FundraiserDetailController extends Controller
             'data' => $createdData,
         ], Response::HTTP_CREATED);
     }
-
-    // public function hasRaiseFund()
-    // {
-    //     $myPost = DB::table('fundraisers')
-    //                 ->join('raise_funds', 'fundraisers.id', '=', 'raise_funds.user_id')
-    //                 ->select('fundraisers.*', 'raise_funds.*')
-    //                 ->get();
-    //     // $myPost = Fundraiser::join('raise_funds', 'fundraisers.id', '=', 'raise_funds.user_id')->get();
-
-    //     if(!isset($myPost)){
-    //         return response()->json([
-    //             'message' => 'anda belum menggalang dana',
-    //         ]);
-    //     }
-
-    //     return response()->json([
-    //         'message' => 'menampilkan galang dana yang anda buat',
-    //         'data' => $myPost,
-    //     ]);
-    // }
 }
