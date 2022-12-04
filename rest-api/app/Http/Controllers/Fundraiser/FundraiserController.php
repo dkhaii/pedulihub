@@ -32,7 +32,6 @@ class FundraiserController extends Controller
         
         try {
             $createdUser = Fundraiser::create($validated);
-            // event(new Registered($createdUser));
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'gagal resgistrasi',

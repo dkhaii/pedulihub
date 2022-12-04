@@ -7,7 +7,6 @@ use App\Models\FundraiserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Gate;
 
 class FundraiserDetailController extends Controller
 {
