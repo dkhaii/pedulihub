@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('address');
             $table->string('selfie_img');
-            $table->string('nik_ktp');
+            $table->string('nik_ktp')->unique();
             $table->string('ktp_img');
             $table->string('phone_number')->unique();
             $table->string('bank_name');
