@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RaiseFund;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RaiseFundController extends Controller
@@ -80,12 +81,17 @@ class RaiseFundController extends Controller
         $datas = RaiseFund::all();
     
         if($request->keyword != ''){
-            $datas = RaiseFund::where('title', 'LIKE', $request->title.'%')->get();
+            $datas = RaiseFund::where('title', 'LIKE', $request->keyword.'%')->get();
+            
+            return response()->json([
+                'message' => 'menampilkan data berdasarkan judul',
+                'data' => $datas,
+            ]);
         }
         
         return response()->json([
-            'message' => 'menampilkan data berdasarkan judul',
-            'data' => $datas,
+            'message' => 'menampilkan semua data',
+            'data' => $datas
         ]);
     }
 }

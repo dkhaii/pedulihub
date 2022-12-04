@@ -46,6 +46,9 @@ Route::prefix('fundraiser')->group(function () {
         Route::middleware('verified')->group(function () {
             Route::post('/registrasi-data', [FundraiserDetailController::class, 'createData']);
             Route::post('/galang-dana', [RaiseFundController::class, 'createRaiseFund']);
+            Route::get('/list-galang-dana', [RaiseFundController::class, 'showAll']);
+            Route::post('/list-galang-dana/cari', [RaiseFundController::class, 'showByName']);
+            Route::get('/mypost', [FundraiserController::class, 'hasRaiseFund']);
         });
     });
 });
