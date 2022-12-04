@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Fundraiser;
 
+use App\Http\Controllers\Controller;
 use App\Models\FundraiserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

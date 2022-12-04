@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\FundraiserDetailController;
-use App\Http\Controllers\FundraiserController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Fundraiser\FundraiserDetailController;
+use App\Http\Controllers\Fundraiser\FundraiserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,17 +24,22 @@ Route::prefix('donasi')->group(function () {
     Route::post("/registrasi", [UserController::class, "createUser"]);
 });
 
-Route::prefix('donasi')->middleware('auth:sanctum')->group(function () {
+Route::prefix('donasi')->middleware(['auth:sanctum'], ['verified'])->group(function () {
     Route::post("/logout", [UserController::class, "logoutUser"]);
     // Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
 });
 
 Route::prefix('fundraiser')->group(function () {
     Route::post('/registrasi', [FundraiserController::class, 'createUser']);
+    
     Route::post('/login', [FundraiserController::class, 'loginUser']);
 });
 
 Route::prefix('fundraiser')->middleware('auth:sanctum')->group(function () {
+    Route::get('/email/verify/{id}/{hash}', [FundraiserController::class, 'askToVerifyEmail'])
+        ->middleware(['signed'])
+        ->name('verification.verify');
+    
     // Route::post('/registrasi', [FundraiserController::class, 'createUser']);
     // Route::post('/login', [FundraiserController::class, 'loginUser']);
 });
