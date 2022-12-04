@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Fundraiser;
 
 use App\Http\Controllers\Controller;
-use App\Models\FundraiserDetail;
 use App\Models\Fundraiser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -33,7 +32,7 @@ class FundraiserController extends Controller
         
         try {
             $createdUser = Fundraiser::create($validated);
-            event(new Registered($createdUser));
+            // event(new Registered($createdUser));
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'gagal resgistrasi',
@@ -78,12 +77,23 @@ class FundraiserController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function askToVerifyEmail(EmailVerificationRequest $request)
+    public function askToVerifyEmail()
+    {
+        $user = auth()->user();
+
+        event(new Registered($user));
+
+        return response()->json([
+            'message' => 'Verifikasi telah dikirim, silahkan cek email anda'
+        ]);
+    }
+
+    public function verifyEmail(EmailVerificationRequest $request)
     {
         $request->fulfill();
 
         return response()->json([
-            'message' => 'Email anda berhasil diverifikasi'
+            'message' => 'email anda berhasil di verifikasi',
         ], Response::HTTP_OK);
     }
 
