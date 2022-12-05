@@ -23,15 +23,11 @@ class FundraiserDetail extends Model
         'contract_file',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     /**
      * The relation between tables.
      * 
      */
-    public function details()
+    public function fundraiser()
     {
         return $this->belongsTo(Fundraiser::class);
     }

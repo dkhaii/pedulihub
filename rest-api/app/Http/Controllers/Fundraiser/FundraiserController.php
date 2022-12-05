@@ -9,7 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -109,9 +109,9 @@ class FundraiserController extends Controller
 
     public function hasRaiseFund()
     {
-        $user = auth()->user()->id;
-        
-        $myPost = RaiseFund::where('user_id', $user)->get();
+        $user = Auth::user();
+        $myPost = $user->raiseFund;
+        // $myPost = RaiseFund::where('user_id', $user)->get();
 
         if(!isset($myPost)){
             return response()->json([

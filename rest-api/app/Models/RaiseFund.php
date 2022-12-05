@@ -26,7 +26,7 @@ class RaiseFund extends Model
      * The relation between tables.
      * 
      */
-    public function user()
+    public function fundraiser()
     {
         return $this->belongsTo(Fundraiser::class);
     }
