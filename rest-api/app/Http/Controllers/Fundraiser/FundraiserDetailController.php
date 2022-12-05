@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Fundraiser;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fundraiser;
 use App\Models\FundraiserDetail;
-use App\Models\RaiseFund;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class FundraiserDetailController extends Controller

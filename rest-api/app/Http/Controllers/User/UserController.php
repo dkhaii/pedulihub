@@ -97,4 +97,6 @@ class UserController extends Controller
             "message" => "berhasil menghapus user"
         ], Response::HTTP_OK);
     }
+
+    
 }
