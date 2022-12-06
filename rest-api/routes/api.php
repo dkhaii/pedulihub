@@ -5,9 +5,6 @@ use App\Http\Controllers\Fundraiser\FundraiserDetailController;
 use App\Http\Controllers\Fundraiser\FundraiserController;
 use App\Http\Controllers\Fundraiser\RaiseFundController;
 use App\Http\Controllers\User\DonationController;
-use App\Models\Fundraiser;
-use App\Models\RaiseFund;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
