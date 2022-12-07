@@ -15,6 +15,7 @@ class RaiseFund extends Model
         'description',
         'category_id',
         'funds',
+        'ends_at',
         'title_img',
         'img1',
         'img2',

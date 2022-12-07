@@ -19,6 +19,7 @@ class DonationController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nominal' => 'required|integer',
+            'message' => 'string',
         ]);
 
         if($validator->fails()){
@@ -38,6 +39,7 @@ class DonationController extends Controller
                 'user_id' => $userId,
                 'name' => $userName,
                 'nominal' => $validated['nominal'],
+                'message' => $validated['message'],
                 'raise_fund_id' => $getId,
             ]);
         } catch (\Exception $e) {

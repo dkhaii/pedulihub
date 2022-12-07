@@ -13,6 +13,7 @@ class Donation extends Model
         'user_id',
         'name',
         'nominal',
+        'message',
         'status',
         'raise_fund_id',
     ];
@@ -24,11 +25,6 @@ class Donation extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function comment()
-    {
-        return $this->hasOne(Comment::class, 'raise_fund_id');
     }
 
     public function payment()

@@ -111,7 +111,6 @@ class FundraiserController extends Controller
     {
         $user = Auth::user();
         $myPost = $user->raiseFund;
-        // $myPost = RaiseFund::where('user_id', $user)->get();
 
         if(!isset($myPost)){
             return response()->json([

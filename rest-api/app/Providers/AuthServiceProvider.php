@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Models\FundraiserDetail;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -43,10 +44,11 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('accepted', function(FundraiserDetail $user){
-            $user = auth()->user()->id;
+        Gate::define('accepted', function(){
+            $user = Auth::user();
+            $status = $user->detail->status;
             
-            if($user->status === true){
+            if($status === 1){
                 return true;
             } 
         });
