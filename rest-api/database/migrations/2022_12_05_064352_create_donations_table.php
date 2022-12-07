@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('raise_fund_id')->constrained('raise_funds');
             $table->string('name');
             $table->integer('nominal');
+            $table->string('message')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

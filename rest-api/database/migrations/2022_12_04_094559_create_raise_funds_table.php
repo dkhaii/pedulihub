@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories');
             $table->integer('funds');
             $table->integer('has_funds')->default('0');
+            $table->dateTime('ends_at');
             $table->string('title_img');
             $table->string('img1');
             $table->string('img2');
