@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('raise_funds', function (Blueprint $table) {
             $table->id();
+            $table->string('campaign_id');
             $table->foreignId('user_id')->constrained('fundraisers');
             $table->string('title')->unique();
             $table->string('description');
