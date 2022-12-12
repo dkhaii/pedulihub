@@ -54,4 +54,36 @@ class PaymentController extends Controller
             'payment' => $createPayment,
         ]);
     }
+
+    public function gopayPayment($inv)
+    {
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-54nK_ysA2hg9M-43lAt8yBau';
+        \Midtrans\Config::$isProduction = false;
+
+        $user = Auth::user();
+        $userId = $user->id;
+        $name = $user->name;
+        $inv = Donation::find($inv);
+        $inv_id = $inv->inv_id;
+        $nominal = $inv->nominal;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $inv_id,
+                'gross_amount' => $nominal,
+            ),
+            'payment_type' => 'gopay',
+            'gopay' => array(
+                'enable_callback' => true,                
+                'callback_url' => 'someapps://callback'   
+            )
+        );
+
+        $response = \Midtrans\CoreApi::charge($params);
+
+        return response()->json([
+            'message' => 'berhasil melakukan pembayaran',
+            'data' => $response,
+        ]);
+    }
 }
