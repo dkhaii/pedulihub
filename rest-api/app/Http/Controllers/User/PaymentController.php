@@ -38,16 +38,16 @@ class PaymentController extends Controller
                 'nominal' => $donationNominal,
                 'method' => $validated['method'],
             ]);
-
-            // if($createPayment){
-            //     $donation->status = '1';
-            // }
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'gagal melakukan pembayaran',
                 'errors' => $e->getMessage(),
             ]);
         }
+
+        // if($createPayment){
+        //     $donation->status = '1';
+        // }
 
         return response()->json([
             'message' => 'berhasil melakukan pembayaran',

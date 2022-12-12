@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
+            $table->string('inv_id');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('raise_fund_id')->constrained('raise_funds');
+            $table->foreignId('campaign_id')->constrained('raise_funds');
             $table->string('name');
             $table->integer('nominal');
             $table->string('message')->nullable();

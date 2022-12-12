@@ -10,12 +10,13 @@ class Donation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'inv_id',
         'user_id',
         'name',
         'nominal',
         'message',
         'status',
-        'raise_fund_id',
+        'campaign_id',
     ];
 
     /**
