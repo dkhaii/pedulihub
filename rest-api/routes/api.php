@@ -4,6 +4,8 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Fundraiser\FundraiserDetailController;
 use App\Http\Controllers\Fundraiser\FundraiserController;
 use App\Http\Controllers\Fundraiser\RaiseFundController;
+use App\Http\Controllers\User\DonationController;
+use App\Http\Controllers\User\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +27,13 @@ Route::prefix('donasi')->group(function () {
     Route::post("/registrasi", [UserController::class, "createUser"]);
     Route::get('/pilihan-donasi', [RaiseFundController::class, 'showAll']);
     Route::post('/cari', [RaiseFundController::class, 'showByName']);
+    Route::get('/cari/{id}', [RaiseFundController::class, 'showById']);
+    
 });
 
 Route::prefix('donasi')->middleware(['auth:sanctum'])->group(function () {
+    Route::post('/campaign/{id}', [DonationController::class, 'createDonation']);
+    Route::post('/payment/{id}', [PaymentController::class, 'gopayPayment']);
     Route::post("/logout", [UserController::class, "logoutUser"]);
 });
 

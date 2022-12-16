@@ -4,43 +4,79 @@ namespace App\Http\Controllers\Fundraiser;
 
 use App\Http\Controllers\Controller;
 use App\Models\RaiseFund;
+use Carbon\Carbon;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class RaiseFundController extends Controller
 {
     public function createRaiseFund(Request $request)
     {
+        Gate::authorize('accepted');
+        
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
             'description' => 'required|string',
             'category_id' => 'required',
             'funds' => 'required|integer',
+            'ends_at' => 'required',
             'title_img' => 'required|mimes:png,jpg,jpeg|max:5048',
             'img1' => 'required|mimes:png,jpg,jpeg|max:5048',
             'img2' => 'required|mimes:png,jpg,jpeg|max:5048',
             'img3' => 'required|mimes:png,jpg,jpeg|max:5048',
         ]);
 
+        
         if($validator->fails()){
             return response()->json([
                 'message' => 'Pastikan semua data di isi',
                 'errors' => $validator->errors(),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
+        
         $validated = $validator->validated();
+        $currentDate = Carbon::now();
+        if($request->ends_at != ''){
+            //mingguan
+            if($request->ends_at == '1 minggu'){
+                $currentDate->addWeeks(1);
+            }
+            elseif($request->ends_at == '2 minggu'){
+                $currentDate->addWeeks(2);
+            }
+            elseif($request->ends_at == '3 minggu'){
+                $currentDate->addWeeks(3);
+            }
+            
+            //bulanan
+            elseif($request->ends_at == '1 bulan'){
+                $currentDate->addMonths(1);
+            }
+            elseif($request->ends_at == '2 bulan'){
+                $currentDate->addMonths(2);
+            }
+        }
         $user = auth()->user()->id;
-
+        $campaignId = IdGenerator::generate([
+            'table' => 'raise_funds',
+            'field' => 'campaign_id',
+            'length' => 10,
+            'prefix' => 'CMP-'
+        ]);
+        
         try {
             $createData = RaiseFund::create([
+                'campaign_id' => $campaignId,
                 'user_id' => $user,
                 'title' => $validated['title'],
                 'description' => $validated['description'],
                 'category_id' => $validated['category_id'],
                 'funds' => $validated['funds'],
+                'ends_at' => $currentDate,
                 'title_img' => $validated['title_img'],
                 'img1' => $validated['img1'],
                 'img2' => $validated['img2'],
@@ -57,6 +93,7 @@ class RaiseFundController extends Controller
             'message' => 'berhasil membuat postingan',
             'data' => $createData,
         ], Response::HTTP_CREATED);
+
     }
 
     
@@ -92,6 +129,16 @@ class RaiseFundController extends Controller
         return response()->json([
             'message' => 'menampilkan semua data',
             'data' => $datas
+        ]);
+    }
+
+    public function showById($id)
+    {
+        $data = RaiseFund::where('id', $id)->get();
+
+        return response()->json([
+            'message' => 'berhasil memilih data donasi',
+            'data' => $data,
         ]);
     }
 }

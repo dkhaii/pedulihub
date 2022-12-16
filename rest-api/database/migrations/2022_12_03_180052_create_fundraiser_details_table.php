@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('bank_name');
             $table->string('bank_account')->unique();
             $table->string('contract_file');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

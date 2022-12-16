@@ -10,11 +10,13 @@ class RaiseFund extends Model
     use HasFactory;
 
     protected $fillable = [
+        'campaign_id',
         'user_id',
         'title',
         'description',
         'category_id',
         'funds',
+        'ends_at',
         'title_img',
         'img1',
         'img2',
@@ -26,7 +28,7 @@ class RaiseFund extends Model
      * The relation between tables.
      * 
      */
-    public function user()
+    public function fundraiser()
     {
         return $this->belongsTo(Fundraiser::class);
     }

@@ -17,6 +17,6 @@ class Category extends Model
      */
     public function raiseFund()
     {
-        return $this->hasMany(RaiseFund::class);
+        return $this->hasMany(RaiseFund::class, 'category_id');
     }
 }

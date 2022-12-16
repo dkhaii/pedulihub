@@ -29,7 +29,7 @@ class UserController extends Controller
 
         $validated = $validator->validated();
         $validated["password"] = bcrypt($validated["password"]);
-        
+
         try {
             $createdUser = User::create($validated);
         } catch (\Exception $e) {
@@ -97,4 +97,6 @@ class UserController extends Controller
             "message" => "berhasil menghapus user"
         ], Response::HTTP_OK);
     }
+
+    
 }

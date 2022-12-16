@@ -46,13 +46,13 @@ class Fundraiser extends Authenticatable implements MustVerifyEmail
      * The relation between tables.
      * 
      */
-    public function details()
+    public function detail()
     {
-        return $this->hasOne(FundraiserDetail::class);
+        return $this->hasOne(FundraiserDetail::class, 'user_id');
     }
 
     public function raiseFund()
     {
-        return $this->hasMany(RaiseFund::class);
+        return $this->hasMany(RaiseFund::class, 'user_id');
     }
 }

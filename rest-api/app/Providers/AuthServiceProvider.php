@@ -4,8 +4,10 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\FundraiserDetail;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -40,6 +42,15 @@ class AuthServiceProvider extends ServiceProvider
             if($user->role_id === 2 || $user->role_id === 1){
                 return true;
             }
+        });
+
+        Gate::define('accepted', function(){
+            $user = Auth::user();
+            $status = $user->detail->status;
+            
+            if($status === 1){
+                return true;
+            } 
         });
     }
 }
