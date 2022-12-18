@@ -33,7 +33,7 @@ Route::prefix('donasi')->group(function () {
 
 Route::prefix('donasi')->middleware(['auth:sanctum'])->group(function () {
     Route::post('/campaign/{id}', [DonationController::class, 'createDonation']);
-    Route::post('/payment/{id}', [PaymentController::class, 'createPayment']);
+    Route::post('/payment/{id}', [PaymentController::class, 'gopayPayment']);
     Route::post("/logout", [UserController::class, "logoutUser"]);
 });
 

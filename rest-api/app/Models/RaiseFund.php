@@ -10,6 +10,7 @@ class RaiseFund extends Model
     use HasFactory;
 
     protected $fillable = [
+        'campaign_id',
         'user_id',
         'title',
         'description',

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class DonationController extends Controller
 {
@@ -33,14 +34,21 @@ class DonationController extends Controller
 
         $userId = Auth::user()->id;
         $userName = Auth::user()->name;
+        $invId = IdGenerator::generate([
+            'table' => 'donations',
+            'field' => 'inv_id',
+            'length' => 10,
+            'prefix' => 'INV-'
+        ]);
 
         try {
             $crateDonation = Donation::create([
+                'inv_id' => $invId,
                 'user_id' => $userId,
                 'name' => $userName,
                 'nominal' => $validated['nominal'],
                 'message' => $validated['message'],
-                'raise_fund_id' => $getId,
+                'campaign_id' => $getId,
             ]);
         } catch (\Exception $e) {
             return response()->json([
