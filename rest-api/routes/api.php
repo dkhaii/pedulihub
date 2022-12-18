@@ -4,6 +4,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Fundraiser\FundraiserDetailController;
 use App\Http\Controllers\Fundraiser\FundraiserController;
 use App\Http\Controllers\Fundraiser\RaiseFundController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\User\DonationController;
 use App\Http\Controllers\User\PaymentController;
 use Illuminate\Http\Request;
@@ -28,7 +29,6 @@ Route::prefix('donasi')->group(function () {
     Route::get('/pilihan-donasi', [RaiseFundController::class, 'showAll']);
     Route::post('/cari', [RaiseFundController::class, 'showByName']);
     Route::get('/cari/{id}', [RaiseFundController::class, 'showById']);
-    
 });
 
 Route::prefix('donasi')->middleware(['auth:sanctum'])->group(function () {
@@ -46,7 +46,7 @@ Route::prefix('fundraiser')->group(function () {
             ->name('verification.notice');
         Route::get('/email/verify/{id}/{hash}', [FundraiserController::class, 'verifyEmail'])
             ->middleware(['signed'])
-            ->name('verification.verify');  
+            ->name('verification.verify');
         Route::post('/logout', [FundraiserController::class, 'logoutUser']);
 
         Route::middleware('verified')->group(function () {
@@ -59,6 +59,10 @@ Route::prefix('fundraiser')->group(function () {
     });
 });
 
+Route::prefix('admin')->group(function () {
+    Route::post('/register', [AdminController::class, 'createAdmin']);
+    Route::post('/login', [AdminController::class, 'loginAdmin']);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -40,43 +40,7 @@ class DatabaseSeeder extends Seeder
         //     ['role_name' => 'Donatur'],
         // ]);
 
-        // Fundraiser::insert([
-        //     [
-        //         'email' => 'mordekhaigerin@gmail.com',
-        //         'password' => 'testing123',
-        //     ]
-        // ]);
 
-        // $timestamp = rand(1262055681,1262055681);;
-        // $randomDate = date("Y-m-d H:i:s", $timestamp);
-
-        // RaiseFund::insert([
-        //     [
-        //         'user_id' => 1,
-        //         'title' => 'tolong kami kak',
-        //         'description' => 'adsfsadfsdaf',
-        //         'category_id' => 2,
-        //         'funds' => 20000,
-        //         'ends_at' => $randomDate,
-        //         'title_img' => 'null',
-        //         'img1' => 'null',
-        //         'img2' => 'null',
-        //         'img3' => 'null',
-        //     ],
-        //     [
-        //         'user_id' => 1,
-        //         'title' => 'wkwkwkwk',
-        //         'description' => 'adsfsadfsdaf',
-        //         'category_id' => 3,
-        //         'funds' => 20000,
-        //         'ends_at' => $randomDate,
-        //         'title_img' => 'null',
-        //         'img1' => 'null',
-        //         'img2' => 'null',
-        //         'img3' => 'null',
-        //     ],
-        // ]);
-        
         Category::insert([
             ['category_name' => 'Anak'],
             ['category_name' => 'Kemanusiaan'],
@@ -85,5 +49,15 @@ class DatabaseSeeder extends Seeder
             ['category_name' => 'Hewan'],
             ['category_name' => 'Kesehatan'],
         ]);
+        User::insert(
+            [
+                [
+                    'name' => 'Admin PeduliHub',
+                    'username' => 'adminpedulihub',
+                    'password' => '123',
+                    'is_admin' => 1,
+                ]
+            ]
+        );
     }
 }

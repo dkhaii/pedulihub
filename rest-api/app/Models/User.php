@@ -18,10 +18,15 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
+    // protected $table = 'Users';
     protected $fillable = [
         'name',
         'username',
         'password',
+    ];
+    
+    protected $guarded = [
+        'is_admin'
     ];
 
     /**
