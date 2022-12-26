@@ -40,10 +40,17 @@ class DonationController extends Controller
             'length' => 10,
             'prefix' => 'INV-'
         ]);
+        $transactionId = IdGenerator::generate([
+            'table' => 'donations',
+            'field' => 'transaction_id',
+            'length' => 10,
+            'prefix' => date('ym'),
+        ]);
 
         try {
             $crateDonation = Donation::create([
                 'inv_id' => $invId,
+                'transaction_id' => $transactionId,
                 'user_id' => $userId,
                 'name' => $userName,
                 'nominal' => $validated['nominal'],
@@ -57,9 +64,63 @@ class DonationController extends Controller
             ]);
         }
 
+        if($crateDonation){
+            $crateDonation = array(
+                'inv_id' => $crateDonation['inv_id'],
+                'user_id' => $crateDonation['user_id'],
+                'name' => $crateDonation['name'],
+                'nominal' => $crateDonation['nominal'],
+                'message' => $crateDonation['message'],
+                'campaign_id' => $crateDonation['campaign_id'],
+            );
+        }
+
         return response()->json([
             'message' => 'berhasil membuat donasi, silahkan lanjut ke menu pembayaran',
-            'donasi' => $crateDonation
+            'donasi' => $crateDonation,
         ], Response::HTTP_CREATED);
+    }
+
+    public function handlePaymentProcess(Request $request)
+    {
+        $notif = $request->getContent();
+        $invId = $notif['inv_id'];
+        $transactionId = $notif['transaction_id'];
+        $statusCode = $notif['status'];
+
+        $donation = Donation::where('inv_id', $invId)->where('transaction_id', $transactionId)->first();
+
+        if (!$donation) {
+            return response()->json([
+                'message' => 'terjadi kesalahan dalam pembayaran atau pembayaran tidak valid'
+            ]);
+        }
+
+        try {
+            switch ($statusCode) {
+                case '200':
+                    $donation->status = 1;
+                    break;
+                
+                case '201':
+                    $donation->status = 0;
+                    break;
+                
+                case '202':
+                    $donation->status = 0;
+                    break;   
+            }
+
+            $donation->save();
+
+            return response()->json([
+                'message' => 'ok'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'error',
+                'errors' => $e->getMessage()
+            ]);
+        }
     }
 }

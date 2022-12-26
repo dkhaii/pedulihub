@@ -49,15 +49,15 @@ class DatabaseSeeder extends Seeder
             ['category_name' => 'Hewan'],
             ['category_name' => 'Kesehatan'],
         ]);
-        User::insert(
-            [
-                [
-                    'name' => 'Admin PeduliHub',
-                    'username' => 'adminpedulihub',
-                    'password' => '123',
-                    'is_admin' => 1,
-                ]
-            ]
-        );
+        // User::insert(
+        //     [
+        //         [
+        //             'name' => 'Admin PeduliHub',
+        //             'username' => 'adminpedulihub',
+        //             'password' => '123',
+        //             'is_admin' => 1,
+        //         ]
+        //     ]
+        // );
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Fundraiser\RaiseFundController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\User\DonationController;
 use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\User\PaymentNotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,13 @@ Route::prefix('donasi')->group(function () {
 
 Route::prefix('donasi')->middleware(['auth:sanctum'])->group(function () {
     Route::post('/campaign/{id}', [DonationController::class, 'createDonation']);
-    Route::post('/payment/{id}', [PaymentController::class, 'gopayGateaway']);
+    Route::prefix('payment')->group(function () {
+        // Route::post('/gopay/{id}', [PaymentController::class, 'gopayGateaway']);
+        // Route::post('/bni/{id}', [PaymentController::class, 'bniGateaway']);
+        // Route::post('/bca/{id}', [PaymentController::class, 'bcaGateaway']);
+        Route::post('/snap/{id}', [PaymentController::class, 'snapGateaway']);
+        Route::post('/callback', [DonationController::class, 'handlePaymentProcess']);
+    });
     Route::post("/logout", [UserController::class, "logoutUser"]);
 });
 

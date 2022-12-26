@@ -42,21 +42,21 @@ class RaiseFundController extends Controller
         $currentDate = Carbon::now();
         if($request->ends_at != ''){
             //mingguan
-            if($request->ends_at == '1 minggu'){
+            if ($request->ends_at == '1 minggu') {
                 $currentDate->addWeeks(1);
             }
-            elseif($request->ends_at == '2 minggu'){
+            elseif ($request->ends_at == '2 minggu') {
                 $currentDate->addWeeks(2);
             }
-            elseif($request->ends_at == '3 minggu'){
+            elseif ($request->ends_at == '3 minggu') {
                 $currentDate->addWeeks(3);
             }
             
             //bulanan
-            elseif($request->ends_at == '1 bulan'){
+            elseif ($request->ends_at == '1 bulan') {
                 $currentDate->addMonths(1);
             }
-            elseif($request->ends_at == '2 bulan'){
+            elseif ($request->ends_at == '2 bulan') {
                 $currentDate->addMonths(2);
             }
         }
@@ -101,7 +101,7 @@ class RaiseFundController extends Controller
     {
         $datas = RaiseFund::all();
         
-        if(!isset($datas)){
+        if (!isset($datas)) {
             return response()->json([
                 'message' => 'belum ada data'
             ]);
@@ -117,7 +117,7 @@ class RaiseFundController extends Controller
     {
         $datas = RaiseFund::all();
     
-        if($request->keyword != ''){
+        if ($request->keyword != '') {
             $datas = RaiseFund::where('title', 'LIKE', $request->keyword.'%')->get();
             
             return response()->json([

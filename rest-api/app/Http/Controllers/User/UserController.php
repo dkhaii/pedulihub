@@ -20,7 +20,7 @@ class UserController extends Controller
             "password" => "required|string|min:8",
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 "message" => "gagal registrasi",
                 "errors" => $validator->errors()

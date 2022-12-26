@@ -22,7 +22,7 @@ class FundraiserController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'message' => 'Silahkan isi semua data',
                 'errors' => $validator->errors(),
@@ -54,7 +54,7 @@ class FundraiserController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'message' => 'email atau password tidak di isi',
                 'errors' => $validator->errors(),
@@ -63,7 +63,7 @@ class FundraiserController extends Controller
 
         $fundraiser = Fundraiser::where('email', $request->email)->first();
 
-        if(!$fundraiser || !Hash::check($request->password, $fundraiser->password)){
+        if (!$fundraiser || !Hash::check($request->password, $fundraiser->password)) {
             return response()->json([
                 'message' => 'user tidak di temukan',
             ], Response::HTTP_NOT_FOUND);
@@ -112,7 +112,7 @@ class FundraiserController extends Controller
         $user = Auth::user();
         $myPost = $user->raiseFund;
 
-        if(!isset($myPost)){
+        if (!isset($myPost)) {
             return response()->json([
                 'message' => 'anda belum menggalang dana',
             ]);
