@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Fundraiser;
 use App\Http\Controllers\Controller;
 use App\Models\RaiseFund;
 use Carbon\Carbon;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -60,9 +61,16 @@ class RaiseFundController extends Controller
             }
         }
         $user = auth()->user()->id;
+        $campaignId = IdGenerator::generate([
+            'table' => 'raise_funds',
+            'field' => 'campaign_id',
+            'length' => 10,
+            'prefix' => 'CMP-'
+        ]);
         
         try {
             $createData = RaiseFund::create([
+                'campaign_id' => $campaignId,
                 'user_id' => $user,
                 'title' => $validated['title'],
                 'description' => $validated['description'],

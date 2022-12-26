@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\Fundraiser;
+use App\Models\RaiseFund;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -37,6 +39,7 @@ class DatabaseSeeder extends Seeder
         //     ['role_name' => 'Fundraiser'],
         //     ['role_name' => 'Donatur'],
         // ]);
+
 
         Category::insert([
             ['category_name' => 'Anak'],
