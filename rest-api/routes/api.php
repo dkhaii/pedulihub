@@ -62,6 +62,7 @@ Route::prefix('fundraiser')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::post('/register', [AdminController::class, 'createAdmin']);
     Route::post('/login', [AdminController::class, 'loginAdmin']);
+    Route::put('/update/{id?}', [AdminController::class, 'update']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -19,7 +19,7 @@ class AdminController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'message' => 'username atau password tidak di isi',
                 'errors' => $validator->errors(),
@@ -28,7 +28,7 @@ class AdminController extends Controller
 
         $admin = User::where('username', $request->username)->first();
 
-        if(!$admin || !Hash::check($request->password, $admin->password || $admin->is_admin = 0)){
+        if (!$admin || !Hash::check($request->password, $admin->password || $admin->is_admin = 0)) {
             return response()->json([
                 'message' => 'user tidak di temukan',
             ], Response::HTTP_NOT_FOUND);
@@ -51,7 +51,7 @@ class AdminController extends Controller
             "password" => "required|string|min:8",
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 "message" => "gagal registrasi",
                 "errors" => $validator->errors()
@@ -60,7 +60,7 @@ class AdminController extends Controller
 
         $validated = $validator->validated();
         $validated["password"] = bcrypt($validated["password"]);
-        
+
         try {
             $createdAdmin = User::create($validated);
         } catch (\Exception $e) {
@@ -75,4 +75,36 @@ class AdminController extends Controller
             "data" => $createdAdmin,
         ], Response::HTTP_CREATED);
     }
+
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            "is_admin" => "numeric,min:0,max:1"
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "message" => "Gagal update user.",
+                "errors" => $validator->errors()
+            ], Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        $validated = $validator->validated();
+
+        try {
+            $admin = User::findOrFail($id);
+            $admin->update($validated);
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => "Gagal update user.",
+                "error" => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            "message" => "Berhasil update user.",
+        ]);
+    }
+
 }
