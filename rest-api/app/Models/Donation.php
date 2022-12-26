@@ -11,6 +11,7 @@ class Donation extends Model
 
     protected $fillable = [
         'inv_id',
+        'transaction_id',
         'user_id',
         'name',
         'nominal',

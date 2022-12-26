@@ -24,7 +24,7 @@ class FundraiserDetailController extends Controller
             'contract_file' => 'required|mimes:pdf|max:204800',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'message' => 'Silahkan isi semua data',
                 'errors' => $validator->errors(),
