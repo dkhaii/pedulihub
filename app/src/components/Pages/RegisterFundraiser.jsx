@@ -7,6 +7,7 @@ import userIcon from "../../assets/usericon.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -21,24 +22,29 @@ export default function Register() {
       return;
     }
 
-    axios.post(`http://localhost:8001/api/fundraiser/registrasi`,
-    {
-      email: email,
-      password: password
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((response) => {
-      console.log(response);
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-    })
+    axios
+      .post(
+        `http://localhost:8001/api/fundraiser/registrasi`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        return alert("Berhasil Registrasi. silahkan login :)");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response.data);
+        return alert("Gagal Registrasi");
+      });
 
     setEmail("");
     setPassword("");
@@ -66,16 +72,16 @@ export default function Register() {
             <p className="mt-3 text-xs font-light text-center text-gray-700">
               {" "}
               Sudah Punya Akun?{" "}
-              <a href="/Login" className="font-medium text-green-600 hover:underline">
+              <Link to="/fundraiser/login" className="font-medium text-green-600 hover:underline">
                 Masuk
-              </a>
+              </Link>
             </p>
             <form className="mt-6" onSubmit={handleSubmit}>
               <FormInput
                 content={{
                   icon: emailIcon,
                   fieldName: "Email",
-                  name: 'email'
+                  name: "email",
                 }}
                 handleInput={setEmail}
               />
@@ -83,7 +89,7 @@ export default function Register() {
                 content={{
                   icon: lockIcon,
                   fieldName: "Password",
-                  name: 'password'
+                  name: "password",
                 }}
                 handleInput={setPassword}
               />
