@@ -6,34 +6,42 @@ import googleLogo from "../../assets/logogoogle.svg";
 import userIcon from "../../assets/usericon.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
+import axios from "axios";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validate form values
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password) {
       setError("Please fill out all fields");
       return;
     }
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
 
-    // Perform registration logic here (e.g. make a request to a server)
-    // ...
+    axios.post(`http://localhost:8001/api/fundraiser/registrasi`,
+    {
+      email: email,
+      password: password
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      console.log(response);
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(error.response.data);
+    })
 
-    // Reset form values and error message
-    setName("");
     setEmail("");
     setPassword("");
-    setConfirmPassword("");
     setError(null);
   };
 
@@ -62,24 +70,22 @@ export default function Register() {
                 Masuk
               </a>
             </p>
-            <form className="mt-6">
+            <form className="mt-6" onSubmit={handleSubmit}>
               <FormInput
                 content={{
                   icon: emailIcon,
                   fieldName: "Email",
+                  name: 'email'
                 }}
+                handleInput={setEmail}
               />
               <FormInput
                 content={{
                   icon: lockIcon,
                   fieldName: "Password",
+                  name: 'password'
                 }}
-              />
-              <FormInput
-                content={{
-                  icon: lockIcon,
-                  fieldName: "Konfirmasi Password",
-                }}
+                handleInput={setPassword}
               />
               {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
               <ButtonSubmit
