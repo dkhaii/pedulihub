@@ -8,48 +8,43 @@ import GoogleButton from "../login/GoogleButton";
 import axios from "axios";
 
 export default function Register() {
-  const [fullName, setFullName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("")
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
   const [error, setError] = useState(null);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validate form values
-    if (!fullName || !userName || !password) {
+    if (!name || !username || !password) {
       setError("Please fill out all fields");
       return;
     }
-    // if (password !== confirmPassword) {
-    //   setError("Passwords do not match");
-    //   return;
-    // }
 
-    const dataPost = {
-      name: fullName,
-      username: userName,
+    axios.post(`http://localhost:8001/api/donasi/registrasi`,
+    {
+      name: name,
+      username: username,
       password: password
-    }
-
-    axios.post(`http://localhost:8001/api/donasi/registrasi`, {dataPost})
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     .then((response) => {
       console.log(response);
       console.log(response.data);
     })
     .catch((error) => {
       console.log(error);
+      console.log(error.response.data);
     })
 
-    // Perform registration logic here (e.g. make a request to a server)
-    // ...
-
-    // Reset form values and error message
-    setFullName("");
-    setUserName("");
+    setName("");
+    setUsername("");
     setPassword("");
-    // setConfirmPassword("");
     setError(null);
   };
 
@@ -83,20 +78,23 @@ export default function Register() {
                 content={{
                   icon: userIcon,
                   fieldName: "Full Name",
+                  name: 'name'
                 }}
-                handleInput={setFullName}
+                handleInput={setName}
               />
               <FormInput
                 content={{
                   icon: userIcon,
                   fieldName: "Username",
+                  name: 'username'
                 }}
-                handleInput={setUserName}
+                handleInput={setUsername}
               />
               <FormInput
                 content={{
                   icon: lockIcon,
                   fieldName: "Password",
+                  name: 'password'
                 }}
                 handleInput={setPassword}
               />
