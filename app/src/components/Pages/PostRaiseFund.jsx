@@ -5,17 +5,17 @@ import ButtonSubmit from "../login/ButtonSubmit";
 import CategorySelect from "../dashboardFundraiser/CategorySelect";
 import WeekSelect from "../dashboardFundraiser/WeekSelect";
 import FileInput from "../dashboardFundraiser/FileInput";
+import HeaderTitle from "../dashboardFundraiser/HeaderTitle";
 
 const PostRaiseFund = () => {
   return (
     <>
       <div className="px-40">
         <DashboardNav />
-        <div className="flex justify-center items-center pt-10">
-          <h1 className="text-4xl font-bold text-accent">
-            GALANG <span className="text-secondary">DANA</span>
-          </h1>
-        </div>
+        <HeaderTitle content={{
+          titlePrimary: 'GALANG',
+          titleSecondary: 'DANA',
+        }}/>
         <div className="px-40 py-10">
           <form action="">
             <InputField
