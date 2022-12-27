@@ -45,7 +45,7 @@ export default function Login() {
       .catch((error) => {
         console.log(error);
         console.log(error.response.data);
-        return alert("gagal login");
+        return alert(`Gagal Login! ${error.response.data.message}`);
       });
 
     setEmail("");

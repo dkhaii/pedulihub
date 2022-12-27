@@ -16,7 +16,7 @@ const DashboardFundraiser = () => {
       .get(`http://localhost:8001/api/fundraiser/list-galang-dana`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       })
       .then((response) => {
