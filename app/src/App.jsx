@@ -1,14 +1,13 @@
-import { Routes, Route } from 'react-router-dom'
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from "react";
+import Login from "./component/Login";
+import Register from "./component/Register";
 
 function App() {
   return (
-    <Routes>
-      <Route path='/user-dashboard' element={}/>
-    </Routes>
-  )
+    <div className="App">
+      <Login />
+    </div>
+  );
 }
 
-export default App
+export default App;
