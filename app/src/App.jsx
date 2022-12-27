@@ -1,4 +1,5 @@
 import React from "react";
+import LandingPage from "./components/Pages/LandingPage";
 import Login from "./components/Pages/Login";
 import LoginFundraiser from "./components/Pages/LoginFundraiser";
 import Register from "./components/Pages/Register";
@@ -9,10 +10,10 @@ import PostRaiseFund from "./components/Pages/PostRaiseFund";
 import FundraiserDataRegister from "./components/Pages/FundraiserDataRegister";
 import { Routes, Route } from "react-router-dom";
 
-
 function App() {
   return (
     <Routes>
+      <Route path="/landing" element={<LandingPage />} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="fundraiser/login" element={<LoginFundraiser/>}/>
