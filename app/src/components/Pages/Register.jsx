@@ -6,6 +6,7 @@ import userIcon from "../../assets/usericon.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -43,7 +44,7 @@ export default function Register() {
       .catch((error) => {
         console.log(error);
         console.log(error.response.data);
-        return alert("Gagal Registrasi");
+        return alert(`Gagal Registrasi! ${error.response.data.message}`);
       });
 
     setName("");
@@ -73,9 +74,9 @@ export default function Register() {
             <p className="mt-3 text-xs font-light text-center text-gray-700">
               {" "}
               Sudah Punya Akun?{" "}
-              <a href="/Login" className="font-medium text-green-600 hover:underline">
+              <Link to="/login" className="font-medium text-green-600 hover:underline">
                 Masuk
-              </a>
+              </Link>
             </p>
             <form className="mt-6" onSubmit={handleSubmit}>
               <FormInput

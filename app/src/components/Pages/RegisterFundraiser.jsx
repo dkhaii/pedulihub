@@ -43,7 +43,7 @@ export default function Register() {
       .catch((error) => {
         console.log(error);
         console.log(error.response.data);
-        return alert("Gagal Registrasi");
+        return alert(`Gagal Registrasi! ${error.response.data.message}`);
       });
 
     setEmail("");
