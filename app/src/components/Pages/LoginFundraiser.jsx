@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FormInput from "../login/FormInput";
-import userIcon from "../../assets/usericon.svg";
+import emailIcon from "../../assets/email.svg";
 import lockIcon from "../../assets/lock.svg";
 import googleLogo from "../../assets/logogoogle.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
@@ -42,8 +42,8 @@ export default function Login() {
             <form onSubmit={handleSubmit} className="mt-6">
               <FormInput
                 content={{
-                  icon: userIcon,
-                  fieldName: "Username",
+                  icon: emailIcon,
+                  fieldName: "Email",
                 }}
               />
               <FormInput
