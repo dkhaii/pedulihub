@@ -98,13 +98,6 @@ export default function Register() {
                 }}
                 handleInput={setPassword}
               />
-              {/* <FormInput
-                content={{
-                  icon: lockIcon,
-                  fieldName: "Konfirmasi Password",
-                }}
-                handleInput={setConfirmPassword}
-              /> */}
               {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
               <ButtonSubmit
                 content={{
