@@ -8,11 +8,10 @@ import GoogleButton from "../login/GoogleButton";
 import axios from "axios";
 
 export default function Register() {
-  const [name, setName] = useState("")
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,25 +21,30 @@ export default function Register() {
       return;
     }
 
-    axios.post(`http://localhost:8001/api/donasi/registrasi`,
-    {
-      name: name,
-      username: username,
-      password: password
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((response) => {
-      console.log(response);
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-      console.log(error.response.data);
-    })
+    axios
+      .post(
+        `http://localhost:8001/api/donasi/registrasi`,
+        {
+          name: name,
+          username: username,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        return alert("Berhasil Registrasi, silahkan login :)");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response.data);
+        return alert("Gagal Registrasi");
+      });
 
     setName("");
     setUsername("");
@@ -78,7 +82,7 @@ export default function Register() {
                 content={{
                   icon: userIcon,
                   fieldName: "Full Name",
-                  name: 'name'
+                  name: "name",
                 }}
                 handleInput={setName}
               />
@@ -86,7 +90,7 @@ export default function Register() {
                 content={{
                   icon: userIcon,
                   fieldName: "Username",
-                  name: 'username'
+                  name: "username",
                 }}
                 handleInput={setUsername}
               />
@@ -94,7 +98,7 @@ export default function Register() {
                 content={{
                   icon: lockIcon,
                   fieldName: "Password",
-                  name: 'password'
+                  name: "password",
                 }}
                 handleInput={setPassword}
               />
