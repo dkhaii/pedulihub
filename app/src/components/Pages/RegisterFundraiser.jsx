@@ -8,7 +8,6 @@ import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
 
 export default function Register() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,7 +17,7 @@ export default function Register() {
     event.preventDefault();
 
     // Validate form values
-    if (!name || !email || !password || !confirmPassword) {
+    if (!email || !password || !confirmPassword) {
       setError("Please fill out all fields");
       return;
     }
@@ -66,8 +65,8 @@ export default function Register() {
             <form className="mt-6">
               <FormInput
                 content={{
-                  icon: userIcon,
-                  fieldName: "Username",
+                  icon: emailIcon,
+                  fieldName: "Email",
                 }}
               />
               <FormInput
