@@ -1,40 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormInput from "../login/FormInput";
-import emailIcon from "../../assets/email.svg";
 import lockIcon from "../../assets/lock.svg";
 import googleLogo from "../../assets/logogoogle.svg";
 import userIcon from "../../assets/usericon.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
+import axios from "axios";
 
 export default function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // Validate form values
-    if (!name || !email || !password || !confirmPassword) {
+    if (!fullName || !userName || !password) {
       setError("Please fill out all fields");
       return;
     }
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
+    // if (password !== confirmPassword) {
+    //   setError("Passwords do not match");
+    //   return;
+    // }
+
+    const dataPost = {
+      name: fullName,
+      username: userName,
+      password: password
     }
+
+    axios.post(`http://localhost:8001/api/donasi/registrasi`, {dataPost})
+    .then((response) => {
+      console.log(response);
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
 
     // Perform registration logic here (e.g. make a request to a server)
     // ...
 
     // Reset form values and error message
-    setName("");
-    setEmail("");
+    setFullName("");
+    setUserName("");
     setPassword("");
-    setConfirmPassword("");
+    // setConfirmPassword("");
     setError(null);
   };
 
@@ -63,25 +78,35 @@ export default function Register() {
                 Masuk
               </a>
             </p>
-            <form className="mt-6">
+            <form className="mt-6" onSubmit={handleSubmit}>
+              <FormInput
+                content={{
+                  icon: userIcon,
+                  fieldName: "Full Name",
+                }}
+                handleInput={setFullName}
+              />
               <FormInput
                 content={{
                   icon: userIcon,
                   fieldName: "Username",
                 }}
+                handleInput={setUserName}
               />
               <FormInput
                 content={{
                   icon: lockIcon,
                   fieldName: "Password",
                 }}
+                handleInput={setPassword}
               />
-              <FormInput
+              {/* <FormInput
                 content={{
                   icon: lockIcon,
                   fieldName: "Konfirmasi Password",
                 }}
-              />
+                handleInput={setConfirmPassword}
+              /> */}
               {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
               <ButtonSubmit
                 content={{
