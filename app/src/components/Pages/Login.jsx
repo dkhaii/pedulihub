@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import FormInput from "./login/FormInput";
-import emailIcon from "../assets/email.svg";
-import lockIcon from "../assets/lock.svg";
-import googleLogo from "../assets/logogoogle.svg";
-import ButtonSubmit from "./login/ButtonSubmit";
-import GoogleButton from "./login/GoogleButton";
+import FormInput from "../login/FormInput";
+import emailIcon from "../../assets/email.svg";
+import lockIcon from "../../assets/lock.svg";
+import googleLogo from "../../assets/logogoogle.svg";
+import ButtonSubmit from "../login/ButtonSubmit";
+import GoogleButton from "../login/GoogleButton";
 
 export default function Login() {
   const [email, setEmail] = useState("");
