@@ -9,6 +9,7 @@ import DashboardFundraiser from "./components/Pages/DashboardFundraiser";
 import PostRaiseFund from "./components/Pages/PostRaiseFund";
 import FundraiserDataRegister from "./components/Pages/FundraiserDataRegister";
 import { Routes, Route } from "react-router-dom";
+import DonationHistory from "./components/Pages/DonationHistory";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/fundraiser/dashboard" element={<DashboardFundraiser/>}/>
       <Route path="/fundraiser/post" element={<PostRaiseFund/>}/>
       <Route path="/fundraiser/register-data" element={<FundraiserDataRegister/>}/>
+      <Route path="/fundraiser/history" element={<DonationHistory />} />
     </Routes>
   );
 }
