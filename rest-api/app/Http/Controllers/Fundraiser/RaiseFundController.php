@@ -83,29 +83,33 @@ class RaiseFundController extends Controller
             $fileName = $this->generateRandomString();
             $extension = $validated['title_img']->extension();
 
-            Storage::putFileAs('image', $validated['title_img'], $fileName.'.'.$extension);
-            $validated['title_img'] = $fileName.'.'.$extension;
+            $path = Storage::putFileAs('public/image', $validated['title_img'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['title_img'] = $link;
         }
         if ($validated['img1']) {
             $fileName = $this->generateRandomString();
             $extension = $validated['img1']->extension();
 
-            Storage::putFileAs('image', $validated['img1'], $fileName.'.'.$extension);
-            $validated['img1'] = $fileName.'.'.$extension;
+            $path = Storage::putFileAs('public/image', $validated['img1'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['img1'] = $link;
         }
         if ($validated['img2']) {
             $fileName = $this->generateRandomString();
             $extension = $validated['img2']->extension();
 
-            Storage::putFileAs('image', $validated['img2'], $fileName.'.'.$extension);
-            $validated['img2'] = $fileName.'.'.$extension;
+            $path = Storage::putFileAs('public/image', $validated['img2'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['img2'] = $link;
         }
         if ($validated['img3']) {
             $fileName = $this->generateRandomString();
             $extension = $validated['img3']->extension();
 
-            Storage::putFileAs('image', $validated['img3'], $fileName.'.'.$extension);
-            $validated['img3'] = $fileName.'.'.$extension;
+            $path = Storage::putFileAs('public/image', $validated['img3'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['img3'] = $link;
         }
         
         try {

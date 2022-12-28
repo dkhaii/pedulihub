@@ -43,22 +43,25 @@ class FundraiserDetailController extends Controller
             $fileName = $this->generateRandomString();
             $extension = $validated['selfie_img']->extension();
 
-            Storage::putFileAs('image', $validated['selfie_img'], $fileName.'.'.$extension);
-            $validated['selfie_img'] = $fileName.'.'.$extension;
+            $path = Storage::putFileAs('public/image', $validated['selfie_img'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['selfie_img'] = $link;        
         }
         if($validated['ktp_img']){
             $fileName = $this->generateRandomString();
             $extension = $validated['ktp_img']->extension();
 
-            Storage::putFileAs('image', $validated['ktp_img'], $fileName.'.'.$extension);
-            $validated['ktp_img'] = $fileName.'.'.$extension;
+            $path = Storage::putFileAs('public/image', $validated['ktp_img'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['ktp_img'] = $link;        
         }
         if($validated['contract_file']){
             $fileName = $this->generateRandomString();
-            $extension = $validated['selfie_img']->extension();
+            $extension = $validated['contract_file']->extension();
 
-            Storage::putFileAs('image', $validated['contract_file'], $fileName.'.'.$extension);
-            $validated['contract_file'] = $fileName.'.'.$extension;
+            $path = Storage::putFileAs('public/file', $validated['contract_file'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['contract_file'] = $link;        
         }
         
         try {
