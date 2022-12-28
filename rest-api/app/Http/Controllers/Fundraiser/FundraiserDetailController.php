@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FundraiserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class FundraiserDetailController extends Controller
@@ -37,6 +38,28 @@ class FundraiserDetailController extends Controller
         $validated['bank_account'] = bcrypt($validated['bank_account']);
         
         $user = auth()->user()->id;
+
+        if($validated['selfie_img']){
+            $fileName = $this->generateRandomString();
+            $extension = $validated['selfie_img']->extension();
+
+            Storage::putFileAs('image', $validated['selfie_img'], $fileName.'.'.$extension);
+            $validated['selfie_img'] = $fileName.'.'.$extension;
+        }
+        if($validated['ktp_img']){
+            $fileName = $this->generateRandomString();
+            $extension = $validated['ktp_img']->extension();
+
+            Storage::putFileAs('image', $validated['ktp_img'], $fileName.'.'.$extension);
+            $validated['ktp_img'] = $fileName.'.'.$extension;
+        }
+        if($validated['contract_file']){
+            $fileName = $this->generateRandomString();
+            $extension = $validated['selfie_img']->extension();
+
+            Storage::putFileAs('image', $validated['contract_file'], $fileName.'.'.$extension);
+            $validated['contract_file'] = $fileName.'.'.$extension;
+        }
         
         try {
             $createdData = FundraiserDetail::create([
