@@ -10,10 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RaiseFundController extends Controller
 {
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+    
     public function createRaiseFund(Request $request)
     {
         Gate::authorize('accepted');
@@ -67,6 +78,35 @@ class RaiseFundController extends Controller
             'length' => 10,
             'prefix' => 'CMP-'
         ]);
+
+        if ($validated['title_img']) {
+            $fileName = $this->generateRandomString();
+            $extension = $validated['title_img']->extension();
+
+            Storage::putFileAs('image', $validated['title_img'], $fileName.'.'.$extension);
+            $validated['title_img'] = $fileName.'.'.$extension;
+        }
+        if ($validated['img1']) {
+            $fileName = $this->generateRandomString();
+            $extension = $validated['img1']->extension();
+
+            Storage::putFileAs('image', $validated['img1'], $fileName.'.'.$extension);
+            $validated['img1'] = $fileName.'.'.$extension;
+        }
+        if ($validated['img2']) {
+            $fileName = $this->generateRandomString();
+            $extension = $validated['img2']->extension();
+
+            Storage::putFileAs('image', $validated['img2'], $fileName.'.'.$extension);
+            $validated['img2'] = $fileName.'.'.$extension;
+        }
+        if ($validated['img3']) {
+            $fileName = $this->generateRandomString();
+            $extension = $validated['img3']->extension();
+
+            Storage::putFileAs('image', $validated['img3'], $fileName.'.'.$extension);
+            $validated['img3'] = $fileName.'.'.$extension;
+        }
         
         try {
             $createData = RaiseFund::create([
