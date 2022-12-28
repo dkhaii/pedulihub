@@ -8,6 +8,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const DashboardUser = () => {
+  const [keyword, setKeyword] = useState("");
   const [datas, setDatas] = useState([]);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -31,6 +32,33 @@ const DashboardUser = () => {
       });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios
+      .post(
+        `http://localhost:8001/api/donasi/cari`,
+        {
+          keyword: keyword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        console.log("data", response.data.data);
+        return setDatas(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response.data);
+      });
+  };
+
   useEffect(() => {
     if (!token) {
       navigate("/landing");
@@ -42,7 +70,9 @@ const DashboardUser = () => {
   return (
     <>
       <div className="px-40">
-        <DashboardNav />
+        <form onSubmit={handleSubmit}>
+          <DashboardNav handleInput={setKeyword} />
+        </form>
       </div>
       <div className="px-10 flex justify-center flex-wrap gap-5 pt-10">
         {datas.map((post) => {
