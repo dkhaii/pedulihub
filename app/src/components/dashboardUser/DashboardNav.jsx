@@ -8,37 +8,8 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const DashboardNav = ({ handleInput }) => {
-  // const [datas, setDatas] = useState([]);
-  // const [keyword, setKeyword] = useState("");
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   axios
-  //     .post(
-  //       `http://localhost:8001/api/donasi/cari`,
-  //       {
-  //         keyword: keyword,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       console.log(response);
-  //       console.log("data", response.data.data);
-  //       return setDatas(response.data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       console.log(error.response.data);
-  //     });
-  // };
 
   useEffect(() => {
     if (!token) {
