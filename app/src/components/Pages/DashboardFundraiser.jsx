@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 const DashboardFundraiser = () => {
+  const [keyword, setKeyword] = useState("");
   const [datas, setDatas] = useState([]);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -16,12 +17,39 @@ const DashboardFundraiser = () => {
       .get(`http://localhost:8001/api/fundraiser/list-galang-dana`, {
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
         console.log(response);
         console.log("data: ", response.data.data);
+        return setDatas(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response.data);
+      });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios
+      .post(
+        `http://localhost:8001/api/fundraiser/list-galang-dana/cari`,
+        {
+          keyword: keyword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        console.log("data", response.data.data);
         return setDatas(response.data.data);
       })
       .catch((error) => {
@@ -41,7 +69,9 @@ const DashboardFundraiser = () => {
   return (
     <>
       <div className="px-40">
-        <DashboardNav />
+        <form onSubmit={handleSubmit}>
+          <DashboardNav handleInput={setKeyword} />
+        </form>
       </div>
       <div className="px-10 flex justify-center flex-wrap gap-5 pt-10">
         {Object.values(datas).map((post) => {
@@ -57,14 +87,6 @@ const DashboardFundraiser = () => {
             />
           );
         })}
-        <Post
-          content={{
-            imgUrl: img,
-            title: "anjay mabar",
-            desc: "asdfsadkfjlksadfjlksf",
-            category: "bencana alam",
-          }}
-        />
       </div>
     </>
   );
