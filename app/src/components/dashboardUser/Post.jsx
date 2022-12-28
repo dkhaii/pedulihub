@@ -3,7 +3,7 @@ import React from "react";
 const Post = ({ content }) => {
   return (
     <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
-      <img className="w-full" src={content.imgUrl} alt="Mountain" />
+        <img className="w-full" src={`../../assets/${content.imgUrl}`} alt="Mountain" />
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{content.title}</div>
         <p className="text-gray-700 text-base">{content.desc}</p>
