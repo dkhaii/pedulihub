@@ -59,15 +59,6 @@ const DashboardUser = () => {
             />
           );
         })}
-        <Post
-          content={{
-            imgUrl: img,
-            title: "tolong kami kak",
-            desc: "asdlfjsadfjsaf",
-            funds: "Rp. 5.000.000",
-            category: "anak-anak",
-          }}
-        />
       </div>
     </>
   );
