@@ -6,50 +6,50 @@ import userIcon from "../../assets/usericon.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Register() {
-  const [fullName, setFullName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validate form values
-    if (!fullName || !userName || !password) {
+    if (!name || !username || !password) {
       setError("Please fill out all fields");
       return;
     }
-    // if (password !== confirmPassword) {
-    //   setError("Passwords do not match");
-    //   return;
-    // }
 
-    const dataPost = {
-      name: fullName,
-      username: userName,
-      password: password
-    }
+    axios
+      .post(
+        `http://localhost:8001/api/donasi/registrasi`,
+        {
+          name: name,
+          username: username,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        return alert("Berhasil Registrasi, silahkan login :)");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response.data);
+        return alert(`Gagal Registrasi! ${error.response.data.message}`);
+      });
 
-    axios.post(`http://localhost:8001/api/donasi/registrasi`, {dataPost})
-    .then((response) => {
-      console.log(response);
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-
-    // Perform registration logic here (e.g. make a request to a server)
-    // ...
-
-    // Reset form values and error message
-    setFullName("");
-    setUserName("");
+    setName("");
+    setUsername("");
     setPassword("");
-    // setConfirmPassword("");
     setError(null);
   };
 
@@ -74,39 +74,35 @@ export default function Register() {
             <p className="mt-3 text-xs font-light text-center text-gray-700">
               {" "}
               Sudah Punya Akun?{" "}
-              <a href="/Login" className="font-medium text-green-600 hover:underline">
+              <Link to="/login" className="font-medium text-green-600 hover:underline">
                 Masuk
-              </a>
+              </Link>
             </p>
             <form className="mt-6" onSubmit={handleSubmit}>
               <FormInput
                 content={{
                   icon: userIcon,
                   fieldName: "Full Name",
+                  name: "name",
                 }}
-                handleInput={setFullName}
+                handleInput={setName}
               />
               <FormInput
                 content={{
                   icon: userIcon,
                   fieldName: "Username",
+                  name: "username",
                 }}
-                handleInput={setUserName}
+                handleInput={setUsername}
               />
               <FormInput
                 content={{
                   icon: lockIcon,
                   fieldName: "Password",
+                  name: "password",
                 }}
                 handleInput={setPassword}
               />
-              {/* <FormInput
-                content={{
-                  icon: lockIcon,
-                  fieldName: "Konfirmasi Password",
-                }}
-                handleInput={setConfirmPassword}
-              /> */}
               {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
               <ButtonSubmit
                 content={{

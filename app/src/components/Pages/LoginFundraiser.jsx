@@ -5,25 +5,49 @@ import lockIcon from "../../assets/lock.svg";
 import googleLogo from "../../assets/logogoogle.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validate form values
     if (!email || !password) {
       setError("Please enter a valid email and password");
       return;
     }
 
-    // Perform login logic here (e.g. make a request to a server)
-    // ...
+    axios
+      .post(
+        `http://localhost:8001/api/fundraiser/login`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        console.log("data: ", response.data);
+        localStorage.setItem("token", response.data.token);
+        return navigate("/fundraiser/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response.data);
+        return alert(`Gagal Login! ${error.response.data.message}`);
+      });
 
-    // Reset form values and error message
     setEmail("");
     setPassword("");
     setError(null);
@@ -44,13 +68,17 @@ export default function Login() {
                 content={{
                   icon: emailIcon,
                   fieldName: "Email",
+                  name: "email",
                 }}
+                handleInput={setEmail}
               />
               <FormInput
                 content={{
                   icon: lockIcon,
                   fieldName: "Password",
+                  name: "password",
                 }}
+                handleInput={setPassword}
               />
               {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
               <ButtonSubmit
@@ -82,9 +110,9 @@ export default function Login() {
             <p className="mt-8 text-xs font-light text-center text-gray-700">
               {" "}
               Baru di PeduliHub?{" "}
-              <a href="" className="font-medium text-green-600 hover:underline">
+              <Link to="/fundraiser/register" className="font-medium text-green-600 hover:underline">
                 Daftar Sekarang
-              </a>
+              </Link>
             </p>
           </div>
         </div>

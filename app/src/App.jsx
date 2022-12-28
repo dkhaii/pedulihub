@@ -15,14 +15,14 @@ function App() {
   return (
     <Routes>
       <Route path="/landing" element={<LandingPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="fundraiser/login" element={<LoginFundraiser />} />
-      <Route path="fundraiser/register" element={<RegisterFundraiser />} />
-      <Route path="/user-dashboard" element={<DashboardUser />} />
-      <Route path="/fundraiser/dashboard" element={<DashboardFundraiser />} />
-      <Route path="/fundraiser/post" element={<PostRaiseFund />} />
-      <Route path="/fundraiser/register-data" element={<FundraiserDataRegister />} />
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/register" element={<Register/>}/>
+      <Route path="/fundraiser/login" element={<LoginFundraiser/>}/>
+      <Route path="/fundraiser/register" element={<RegisterFundraiser/>}/>
+      <Route path="/donasi/dashboard" element={<DashboardUser/>}/>
+      <Route path="/fundraiser/dashboard" element={<DashboardFundraiser/>}/>
+      <Route path="/fundraiser/post" element={<PostRaiseFund/>}/>
+      <Route path="/fundraiser/register-data" element={<FundraiserDataRegister/>}/>
       <Route path="/fundraiser/history" element={<DonationHistory />} />
     </Routes>
   );

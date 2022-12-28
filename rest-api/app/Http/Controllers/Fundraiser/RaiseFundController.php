@@ -10,10 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RaiseFundController extends Controller
 {
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+    
     public function createRaiseFund(Request $request)
     {
         Gate::authorize('accepted');
@@ -67,6 +78,39 @@ class RaiseFundController extends Controller
             'length' => 10,
             'prefix' => 'CMP-'
         ]);
+
+        if ($validated['title_img']) {
+            $fileName = $this->generateRandomString();
+            $extension = $validated['title_img']->extension();
+
+            $path = Storage::putFileAs('public/image', $validated['title_img'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['title_img'] = $link;
+        }
+        if ($validated['img1']) {
+            $fileName = $this->generateRandomString();
+            $extension = $validated['img1']->extension();
+
+            $path = Storage::putFileAs('public/image', $validated['img1'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['img1'] = $link;
+        }
+        if ($validated['img2']) {
+            $fileName = $this->generateRandomString();
+            $extension = $validated['img2']->extension();
+
+            $path = Storage::putFileAs('public/image', $validated['img2'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['img2'] = $link;
+        }
+        if ($validated['img3']) {
+            $fileName = $this->generateRandomString();
+            $extension = $validated['img3']->extension();
+
+            $path = Storage::putFileAs('public/image', $validated['img3'], $fileName.'.'.$extension);
+            $link = Storage::url($path);
+            $validated['img3'] = $link;
+        }
         
         try {
             $createData = RaiseFund::create([

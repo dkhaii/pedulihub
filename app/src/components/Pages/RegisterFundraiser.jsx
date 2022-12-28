@@ -6,34 +6,48 @@ import googleLogo from "../../assets/logogoogle.svg";
 import userIcon from "../../assets/usericon.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validate form values
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password) {
       setError("Please fill out all fields");
       return;
     }
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
 
-    // Perform registration logic here (e.g. make a request to a server)
-    // ...
+    axios
+      .post(
+        `http://localhost:8001/api/fundraiser/registrasi`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        return alert("Berhasil Registrasi. silahkan login :)");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response.data);
+        return alert(`Gagal Registrasi! ${error.response.data.message}`);
+      });
 
-    // Reset form values and error message
-    setName("");
     setEmail("");
     setPassword("");
-    setConfirmPassword("");
     setError(null);
   };
 
@@ -58,28 +72,26 @@ export default function Register() {
             <p className="mt-3 text-xs font-light text-center text-gray-700">
               {" "}
               Sudah Punya Akun?{" "}
-              <a href="/Login" className="font-medium text-green-600 hover:underline">
+              <Link to="/fundraiser/login" className="font-medium text-green-600 hover:underline">
                 Masuk
-              </a>
+              </Link>
             </p>
-            <form className="mt-6">
+            <form className="mt-6" onSubmit={handleSubmit}>
               <FormInput
                 content={{
                   icon: emailIcon,
                   fieldName: "Email",
+                  name: "email",
                 }}
+                handleInput={setEmail}
               />
               <FormInput
                 content={{
                   icon: lockIcon,
                   fieldName: "Password",
+                  name: "password",
                 }}
-              />
-              <FormInput
-                content={{
-                  icon: lockIcon,
-                  fieldName: "Konfirmasi Password",
-                }}
+                handleInput={setPassword}
               />
               {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
               <ButtonSubmit
