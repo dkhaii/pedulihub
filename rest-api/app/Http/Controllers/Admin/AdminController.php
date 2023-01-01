@@ -7,13 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Fundraiser;
 use App\Models\User;
 
 class AdminController extends Controller
 {
     public function loginAdmin(Request $request)
-    {
+    {        
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required|string|min:8',
@@ -28,7 +27,7 @@ class AdminController extends Controller
 
         $admin = User::where('username', $request->username)->first();
 
-        if(!$admin || !Hash::check($request->password, $admin->password || $admin->is_admin = 0)){
+        if(!$admin || !Hash::check($request->password, $admin->password) || $admin->is_admin === false){
             return response()->json([
                 'message' => 'user tidak di temukan',
             ], Response::HTTP_NOT_FOUND);

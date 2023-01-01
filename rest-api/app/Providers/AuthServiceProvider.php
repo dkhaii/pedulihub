@@ -32,14 +32,14 @@ class AuthServiceProvider extends ServiceProvider
 
         //admin gates
         Gate::define('admin', function(User $user){
-            if($user->role_id === 1){
+            if($user->is_admin === 1){
                 return true;
             }
         });
-
-        //fundraiser gates
-        Gate::define('fundraiser', function(User $user){
-            if($user->role_id === 2 || $user->role_id === 1){
+        
+        //admin gates
+        Gate::define('user', function(User $user){
+            if($user->is_admin === 0){
                 return true;
             }
         });

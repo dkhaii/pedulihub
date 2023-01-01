@@ -22,24 +22,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        // User::create([
-        //     "name" => "Mordekhai Gerin",
-        //     "username" => "gerinmordekhai",
-        //     "email" => "mordekhaigerin@gmail.com",
-        //     "password" => bcrypt("testing123") 
-        // ]);
-
-        // Role::insert([
-        //     ['role_name' => 'Admin'],
-        //     ['role_name' => 'Fundraiser'],
-        //     ['role_name' => 'Donatur'],
-        // ]);
-
+        User::create([
+            "name" => "admin",
+            "username" => "admin",
+            "password" => bcrypt("admin123") ,
+            'is_admin' => 1
+        ]);
 
         Category::insert([
             ['category_name' => 'Anak'],
@@ -49,15 +37,5 @@ class DatabaseSeeder extends Seeder
             ['category_name' => 'Hewan'],
             ['category_name' => 'Kesehatan'],
         ]);
-        // User::insert(
-        //     [
-        //         [
-        //             'name' => 'Admin PeduliHub',
-        //             'username' => 'adminpedulihub',
-        //             'password' => '123',
-        //             'is_admin' => 1,
-        //         ]
-        //     ]
-        // );
     }
 }
