@@ -9,14 +9,14 @@ import Footer from "../landingpage/Footer";
 const LandingPage = () => {
   return (
     <>
-      <section>
-        <Navbar></Navbar>
-        <Hero></Hero>
+      <Navbar></Navbar>
+      <Hero></Hero>
+      <section className="px-48 py-20">
         <About></About>
         <Deskripsi></Deskripsi>
-        <Card></Card>
-        <Footer></Footer>
       </section>
+      <Card></Card>
+      <Footer></Footer>
     </>
   );
 };

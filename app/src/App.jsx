@@ -14,7 +14,7 @@ import DonationHistory from "./components/Pages/DonationHistory";
 function App() {
   return (
     <Routes>
-      <Route path="/landing" element={<LandingPage />} />
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/fundraiser/login" element={<LoginFundraiser/>}/>
