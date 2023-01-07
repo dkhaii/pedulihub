@@ -84,19 +84,4 @@ class UserController extends Controller
             "message" => "berhasil logout"
         ], Response::HTTP_OK);
     }
-
-    public function deleteUser($id)
-    {
-        Gate::authorize('admin');
-        
-        $user = User::findOrFail($id);
-        
-        $user->delete();
-
-        return response()->json([
-            "message" => "berhasil menghapus user"
-        ], Response::HTTP_OK);
-    }
-
-    
 }

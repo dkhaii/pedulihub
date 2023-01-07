@@ -2,68 +2,42 @@ import React, { useState } from "react";
 import DonasiButton from "./DonasiButton";
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
+  const [trigger, setTrigger] = useState(false);
+  const [color, setColor] = useState(false);
 
-  const handleNav = () => {
-    setNav(!nav);
+  const changeColor = () => {
+    if (window.scrollY >= 90) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
   };
 
+  window.addEventListener("scroll", changeColor);
+
   return (
-    <nav className="sticky w-full bg-white top-0 z-50 mt-5 shadow-xl">
-      <div className="navbar">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-              </svg>
-            </label>
-            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li tabIndex={0}>
-                <a className="justify-between">
-                  Parent
-                  <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                  </svg>
-                </a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
-            </ul>
-          </div>
-          <h1 className="w-full text-3xl font-bold ml-10 text-accent">
-            Peduli<span className="text-secondary">Hub.</span>
-          </h1>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-black">
-            <li>
-              <a>Berita</a>
-            </li>
-            <li>
-              <a>Donasi Sekarang</a>
-            </li>
-          </ul>
-        </div>
-        <div className="navbar-end  mr-10">
-          <DonasiButton
-            content={{
-              button: "Donasi Sekarang",
-            }}
-          />
-        </div>
+    <nav className={color ? `fixed fade-in bg-white left-0 w-full px-48 py-8 flex justify-between items-center font-poppins z-20 shadow-md` : `fixed left-0 w-full px-48 py-8 flex justify-between items-center font-poppins`}>
+      <div className="font-bold text-[28px]">
+        <h1 className={color ? "text-accent" : "text-white"}>
+          Peduli<span className="text-secondary">Hub</span>
+        </h1>
+      </div>
+      <div className={color ? "flex text-base font-medium" : "flex text-white font-medium"}>
+        <ul className="list-none flex justify-end items-center">
+          <li className="mr-10">
+            <a href="">Berita</a>
+          </li>
+          <li className="mr-10">
+            <a href="">Galang Dana</a>
+          </li>
+          <li>
+            <DonasiButton
+              content={{
+                button: "Donasi Sekarang",
+              }}
+            />
+          </li>
+        </ul>
       </div>
     </nav>
   );

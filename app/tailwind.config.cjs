@@ -8,10 +8,11 @@ module.exports = {
         secondary: "#00AF66",
         accent: "#D3DD18",
         natural: "#00cc3a26",
+        base: "#2E3837",
       },
     },
     fontFamily: {
-      sans: ["Proxima Nova"],
+      poppins: ["Poppins", "sans-serif"],
     },
   },
   plugins: [require("daisyui")],
