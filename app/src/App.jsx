@@ -10,11 +10,13 @@ import PostRaiseFund from "./components/Pages/PostRaiseFund";
 import FundraiserDataRegister from "./components/Pages/FundraiserDataRegister";
 import { Routes, Route } from "react-router-dom";
 import DonationHistory from "./components/Pages/DonationHistory";
+import News from "./components/Pages/News";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/berita" element={<News />} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/fundraiser/login" element={<LoginFundraiser/>}/>
