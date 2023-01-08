@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import DonasiButton from "./DonasiButton";
 
 const Navbar = () => {
-  const [trigger, setTrigger] = useState(false);
   const [color, setColor] = useState(false);
 
   const changeColor = () => {
@@ -16,7 +15,7 @@ const Navbar = () => {
   window.addEventListener("scroll", changeColor);
 
   return (
-    <nav className={color ? `fixed fade-in bg-white left-0 w-full px-48 py-8 flex justify-between items-center font-poppins z-20 shadow-md` : `fixed left-0 w-full px-48 py-8 flex justify-between items-center font-poppins`}>
+    <nav className={color ? `fixed fade-in bg-white left-0 w-full px-48 py-8 flex justify-between items-center font-poppins z-20 shadow-md` : `fixed left-0 w-full px-48 py-8 flex justify-between items-center font-poppins z-20`}>
       <div className="font-bold text-[28px]">
         <h1 className={color ? "text-accent" : "text-white"}>
           Peduli<span className="text-secondary">Hub</span>

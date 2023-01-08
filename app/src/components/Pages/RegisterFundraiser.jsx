@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import FormInput from "../login/FormInput";
-import emailIcon from "../../assets/email.svg";
-import lockIcon from "../../assets/lock.svg";
-import googleLogo from "../../assets/logogoogle.svg";
-import userIcon from "../../assets/usericon.svg";
+import emailIcon from "../../assets/svg/email.svg";
+import lockIcon from "../../assets/svg/lock.svg";
+import googleLogo from "../../assets/svg/logogoogle.svg";
+import userIcon from "../../assets/svg/usericon.svg";
 import ButtonSubmit from "../login/ButtonSubmit";
 import GoogleButton from "../login/GoogleButton";
 import axios from "axios";
