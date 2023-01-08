@@ -5,8 +5,8 @@ import DonasiButton from "./DonasiButton";
 const Hero = () => {
   return (
     <>
-      <section className="realtive px-48 bg-[url('assets/bg.png')] h-[780px] font-poppins">
-        <div className="absolute inset-y-1/4 max-w-3xl">
+      <section className="relative px-48 bg-[url('assets/img/bg.png')] h-[780px] font-poppins">
+        <div className="flex flex-col justify-center h-full max-w-3xl">
           <h1 className="mb-5 text-5xl font-bold text-accent">
             Cara Mudah <br />
             Untuk Membantu Sesama
@@ -18,8 +18,10 @@ const Hero = () => {
             }}
           />
         </div>
-        <div className="absolute inset-y-[72%] z-20">
-          <Counter />
+        <div className="absolute inset-x-0 top-[95%]">
+          <div className="flex justify-center">
+            <Counter />
+          </div>
         </div>
       </section>
     </>

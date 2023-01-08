@@ -1,6 +1,6 @@
 import React from "react";
-import searchIcon from "../../assets/search.svg";
-import notifIcon from "../../assets/notif.svg";
+import searchIcon from "../../assets/svg/search.svg";
+import notifIcon from "../../assets/svg/notif.svg";
 import Table from "../dashboardFundraiser/Table";
 
 const DonationHistory = () => {

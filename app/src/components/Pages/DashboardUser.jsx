@@ -1,7 +1,7 @@
 import React from "react";
 import DashboardNav from "../dashboardUser/DashboardNav";
 import Post from "../dashboardUser/Post";
-import img from "../../assets/img.jpg";
+import img from "../../assets/img/img.jpg";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import axios from "axios";
