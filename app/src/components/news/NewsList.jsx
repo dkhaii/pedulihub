@@ -1,6 +1,5 @@
 import React from 'react'
 import NewsCard from "../news/NewsCard";
-import Paginator from './Paginator';
 
 const NewsList = () => {
   return (
@@ -14,7 +13,6 @@ const NewsList = () => {
         <NewsCard/>
         <NewsCard/>
         <NewsCard/>
-        <Paginator/>
     </div>
   )
 }
