@@ -5,7 +5,7 @@ import DonasiButton from "./DonasiButton";
 const Hero = () => {
   return (
     <>
-      <section className="relative px-48 bg-[url('assets/img/bg.png')] h-[780px] font-poppins">
+      <section className="relative px-48 bg-[url('assets/img/bg.png')] bg-no-repeat bg-cover bg-center bg-fixed h-[780px] font-poppins">
         <div className="flex flex-col justify-center h-full max-w-3xl">
           <h1 className="mb-5 text-5xl font-bold text-accent">
             Cara Mudah <br />

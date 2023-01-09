@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import DonasiButton from "./DonasiButton";
 
 const Navbar = () => {
@@ -17,24 +18,26 @@ const Navbar = () => {
   return (
     <nav className={color ? `fixed fade-in bg-white left-0 w-full px-48 py-8 flex justify-between items-center font-poppins z-20 shadow-md` : `fixed left-0 w-full px-48 py-8 flex justify-between items-center font-poppins z-20`}>
       <div className="font-bold text-[28px]">
-        <h1 className={color ? "text-accent" : "text-white"}>
+        <Link to="/" className={color ? "text-accent" : "text-white"}>
           Peduli<span className="text-secondary">Hub</span>
-        </h1>
+        </Link>
       </div>
       <div className={color ? "flex text-base font-medium" : "flex text-white font-medium"}>
         <ul className="list-none flex justify-end items-center">
           <li className="mr-10">
-            <a href="">Berita</a>
+            <Link to="/berita">Berita</Link>
           </li>
           <li className="mr-10">
-            <a href="">Galang Dana</a>
+            <Link to="/fundraiser/login">Galang Dana</Link>
           </li>
           <li>
-            <DonasiButton
-              content={{
-                button: "Donasi Sekarang",
-              }}
-            />
+            <Link to='/login'>
+              <DonasiButton
+                content={{
+                  button: "Donasi Sekarang",
+                }}
+              />
+            </Link>
           </li>
         </ul>
       </div>

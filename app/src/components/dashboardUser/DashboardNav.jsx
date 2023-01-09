@@ -18,7 +18,7 @@ const DashboardNav = ({ handleInput }) => {
   }, []);
 
   return (
-    <nav className="bg-white pt-7">
+    <nav className="bg-white pt-7 font-poppins">
       <div className="flex justify-between gap-10">
         <div className="text-[25px] font-bold">
           <h1 className="text-accent">

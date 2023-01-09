@@ -54,14 +54,17 @@ export default function Login() {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
+    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full font-poppins">
       <div className="hidden sm:block">
-        <img className="w-full h-full object-cover bg-[url('assets/login.png')]" />
+        <img className="w-full h-full object-cover bg-[url('assets/img/login.png')] bg-no-repeat bg-cover" />
       </div>
 
       <div className="bg-white flex flex-col justify-center rounded-md shadow-xl">
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
           <div className="w-full p-6 m-auto bg-white rounded-md lg:max-w-xl">
+            <h1 className="text-5xl font-bold text-center text-accent">
+              Galang <span className="text-secondary">Dana</span>
+            </h1>
             <h1 className="text-3xl mt-3 font-bold text-center text-black">Masuk ke Akun Anda</h1>
             <form onSubmit={handleSubmit} className="mt-6">
               <FormInput

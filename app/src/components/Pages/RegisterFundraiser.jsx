@@ -52,9 +52,9 @@ export default function Register() {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
+    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full font-poppins">
       <div className="hidden sm:block">
-        <img className="w-full h-full object-cover bg-[url('assets/login.png')]" />
+        <img className="w-full h-full object-cover bg-[url('assets/img/login.png')] bg-no-repeat bg-cover" />
       </div>
 
       <div className="bg-white flex flex-col justify-center rounded-md shadow-xl">
