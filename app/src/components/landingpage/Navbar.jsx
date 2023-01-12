@@ -30,7 +30,7 @@ const Navbar = () => {
           <li className="mr-10">
             <Link to="/fundraiser/login">Galang Dana</Link>
           </li>
-          <li>
+          <li className="shadow-md">
             <Link to='/login'>
               <DonasiButton
                 content={{
