@@ -2,14 +2,16 @@ import React from "react";
 import searchIcon from "../../assets/svg/search.svg";
 import notifIcon from "../../assets/svg/notif.svg";
 import CategoryNav from "./CategoryNav";
-import { useState } from "react";
 import { useNavigate } from "react-router";
-import axios from "axios";
+import { Spin as Hamburger } from "hamburger-react";
 import { useEffect } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const DashboardNav = ({ handleInput }) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -32,7 +34,33 @@ const DashboardNav = ({ handleInput }) => {
           </div>
         </div>
         <img className="w-[32px]" src={notifIcon} alt="search-icon" />
-        <div className="bg-slate-500 p-6 rounded-full"></div>
+        <Hamburger rounded onToggle={() => setTrigger((prev) => !prev)} />
+        <div
+          className={trigger ? "flex justify-center p-6 bg-white absolute top-20 right-0 min-w-full shadow-lg sidebar text-secondary" : "hidden justify-center p-6 bg-white absolute top-20 right-0 min-w-full shadow-lg sidebar text-white"}
+        >
+          <ul className="list-none flex flex-col justify-center items-center">
+            <li className="mb-4">
+              <Link to="/" className="transition duration-300 hover:text-accent">
+                HOME
+              </Link>
+            </li>
+            <li className="mb-4">
+              <Link to="/" className="transition duration-300 hover:text-accent">
+                SETTING
+              </Link>
+            </li>
+            <li className="mb-4">
+              <Link to="/" className="transition duration-300 hover:text-accent">
+                DONATION
+              </Link>
+            </li>
+            <li className="">
+              <Link to="/" className="transition duration-300 hover:text-accent">
+                LOG OUT
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
       <div className="flex items-center pt-3 gap-2">
         <h1 className="pr-5 text-gray-600">Category: </h1>
